@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Dll</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>fsharp_test</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Val.fs" />
+    <Compile Include="Expr.fs" />
+    <Compile Include="Code/Asm.fs" />
+    <Compile Include="Code/Compile.fs" />
+    <Compile Include="Code/Env.fs" />
+    <Compile Include="Code.fs" />
+    <Compile Include="Main.fs" />
+  </ItemGroup>
+</Project>
