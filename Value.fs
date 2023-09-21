@@ -25,7 +25,7 @@ type ValF2 =
     string2 : (string -> string -> string)
     int2 : (int64 -> int64 -> int64)
     decimal2 : (decimal -> decimal -> decimal) }
-  static member Default = 
+  static member Fail = 
     { bool2 = function a -> raise (TypeError $"Unsupported type {a.GetType}")
       string2 = function a -> raise (TypeError $"Unsupported type {a.GetType}")
       int2 = function a -> raise (TypeError $"Unsupported type {a.GetType}")

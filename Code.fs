@@ -73,22 +73,22 @@ type Eval (code : Code, env : Env) =
 
         | Add -> 
           let v2, v1 = Value.castCommon (pop()) (pop())
-          let op = { ValF2.Default with bool2 = (||); string2 = (+); int2 = (+); decimal2 = (+) }
+          let op = { ValF2.Fail with bool2 = (||); string2 = (+); int2 = (+); decimal2 = (+) }
           push <| Value.mapF2 op v1 v2
 
         | Sub ->
           let v2, v1 = Value.castCommon (pop()) (pop())
-          let op = { ValF2.Default with int2 = (-); decimal2 = (-) }
+          let op = { ValF2.Fail with int2 = (-); decimal2 = (-) }
           push <| Value.mapF2 op v1 v2
 
         | Mul -> 
           let v2, v1 = Value.castCommon (pop()) (pop())
-          let op = { ValF2.Default with bool2 = (&&); int2 = (*); decimal2 = (*) }
+          let op = { ValF2.Fail with bool2 = (&&); int2 = (*); decimal2 = (*) }
           push <| Value.mapF2 op v1 v2
 
         | Div ->
           let v2, v1 = Value.castCommon (pop()) (pop())
-          let op = { ValF2.Default with int2 = (/); decimal2 = (/) }
+          let op = { ValF2.Fail with int2 = (/); decimal2 = (/) }
           push <| Value.mapF2 op v1 v2
 
         | Equal -> 
