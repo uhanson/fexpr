@@ -1,27 +1,37 @@
 namespace Expr
 
-module Env =
-  open Expr
-  open Val
+open Expr
 
-  type Env() =
-    let mutable vars : Map<string, Val> = Map.empty
-    let mutable fields : Map<int * int, Val> = Map.empty
-    let mutable dsFields : Map<string * int, Val> = Map.empty
+type Vars = Map<string, Value>
+type Fields = Map<int * int, Value>
+type DsFields = Map<string * int, Value>
 
-    member env.Print() = 
-      printfn "vars: %A" vars
+type Env
+  ( vars_ : Vars
+  , fields_ : Fields
+  , dsFields_ : DsFields
+  ) =
 
-    member env.Get (ref : Ref) : Option<Val> =
-      match ref with
-      | Const v -> Some(v)
-      | Var name -> vars.TryFind name
-      | Field (tableId, fieldId) -> fields.TryFind (tableId, fieldId)
-      | DSField (dsName, fieldId) -> dsFields.TryFind (dsName, fieldId)
+  member val Vars : Map<string, Value> = vars_ with  get, set
+  member val Fields : Map<int * int, Value> = fields_ with  get, set
+  member val DsFields : Map<string * int, Value> = dsFields_ with  get, set
 
-    member env.Set (ref : Ref, value : Val) = 
-      match ref with
-      | Const v -> ()
-      | Var name -> vars <- vars.Add (name, value)
-      | Field (tableId, fieldId) -> fields <- fields.Add ((tableId, fieldId), value)
-      | DSField (dsName, fieldId) -> dsFields <- dsFields.Add ((dsName, fieldId), value)
+  new (orig : Env) = new Env (orig.Vars, orig.Fields, orig.DsFields)
+  new () = Env (Map.empty, Map.empty, Map.empty)
+
+  member env.Print() = 
+    printfn "vars: %A; fields %A; dsFields: %A" env.Vars env.Fields env.DsFields
+
+  member env.Get (ref : Ref) : Option<Value> =
+    match ref with
+    | Const v -> Some(v)
+    | Var name -> env.Vars.TryFind name
+    | Field (tableId, fieldId) -> env.Fields.TryFind (tableId, fieldId)
+    | DSField (dsName, fieldId) -> env.DsFields.TryFind (dsName, fieldId)
+
+  member env.Set (ref : Ref, value : Value) = 
+    match ref with
+    | Const v -> ()
+    | Var name -> env.Vars <- env.Vars.Add (name, value)
+    | Field (tableId, fieldId) -> env.Fields <- env.Fields.Add ((tableId, fieldId), value)
+    | DSField (dsName, fieldId) -> env.DsFields <- env.DsFields.Add ((dsName, fieldId), value)

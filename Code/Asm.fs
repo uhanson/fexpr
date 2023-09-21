@@ -1,14 +1,15 @@
 namespace Expr
 
-module Asm =
-  open Expr
-  open Val
+open Expr
 
-  type Either<'a, 'b> = Left of 'a | Right of 'b
+type Either<'a, 'b> = Left of 'a | Right of 'b
 
-  type Asm
-    = Push of Val
-    | Get of Ref
-    | Jmp of int
-    | JZ of int
-    | Op of Either<UnOp, BinOp>
+type Asm
+  = Push of Value
+  | Get of Ref
+  | Put of Ref
+  | Jmp of int
+  | JZ of int
+  | Op of Either<UnOp, BinOp>
+
+type Code = Asm array

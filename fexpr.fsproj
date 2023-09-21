@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Dll</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>fsharp_test</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Val.fs" />
+    <Compile Include="Core.fs" />
+    <Compile Include="Value.fs" />
     <Compile Include="Expr.fs" />
     <Compile Include="Code/Asm.fs" />
     <Compile Include="Code/Compile.fs" />
