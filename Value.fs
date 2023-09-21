@@ -41,7 +41,7 @@ type Value
       match v with
       | Bool v -> v
       | String v -> v = ""
-      | Int v -> v = 0
+      | Int v -> v = 0L
       | Decimal v -> v = 0m
 
     static member FromObj(o : obj) : Value = 
@@ -101,7 +101,7 @@ type Value
         match v with
         | Bool b -> Decimal <| if b then 1m else 0m
         | String s -> Decimal (Decimal.Parse s)
-        | Int i -> Decimal <| Decimal.CreateChecked i
+        | Int i -> Decimal <| new Decimal (i)
         | Decimal _ -> v
 
     static member castCommon (a : Value) (b : Value) : Value * Value = 
